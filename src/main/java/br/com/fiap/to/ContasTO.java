@@ -1,11 +1,13 @@
 package br.com.fiap.to;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class ContasTO {
     private Long id;
@@ -13,6 +15,7 @@ public class ContasTO {
     @Size(min = 11, max = 11, message = "O CPF deve ter 11 dígitos.")
     private String usuarioCpf;
     @PastOrPresent
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate data;
     @PositiveOrZero
     private float valor;
@@ -57,6 +60,14 @@ public class ContasTO {
         this.data = data;
     }
 
+    public String getDataFormatada() {
+        return data != null ? data.format(FORMATTER) : null;
+    }
+
+    public void setData(String data) {
+        this.data = LocalDate.parse(data, FORMATTER);
+    }
+
     public float getValor() {
         return valor;
     }
@@ -98,5 +109,7 @@ public class ContasTO {
     public boolean isConsumoExcedente(float limite) {
         return this.kwh > limite;
     }
+
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
 }

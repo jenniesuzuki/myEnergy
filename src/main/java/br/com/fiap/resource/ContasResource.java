@@ -7,12 +7,15 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 @Path("/myenergy/contas")
 public class ContasResource {
     private ContasBO contasBO = new ContasBO();
     private static final float LIMITE_CONSUMO = 152.2f;
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -22,6 +25,7 @@ public class ContasResource {
         if (resultado != null) {
             for (ContasTO conta : resultado) {
                 conta.setConsumoExcedente(conta.isConsumoExcedente(LIMITE_CONSUMO));
+                conta.setData(conta.getData().format(FORMATTER));
             }
             response = Response.ok();
         } else {
@@ -39,6 +43,8 @@ public class ContasResource {
         Response.ResponseBuilder response = null;
         if (resultado != null) {
             resultado.setConsumoExcedente(resultado.isConsumoExcedente(LIMITE_CONSUMO));
+            String dataFormatada = resultado.getData().format(FORMATTER);
+            resultado.setData(dataFormatada);
             response = Response.ok();
         } else {
             response = Response.status(404);
@@ -57,6 +63,7 @@ public class ContasResource {
         if (contas != null && !contas.isEmpty()) {
             for (ContasTO conta : contas) {
                 conta.setConsumoExcedente(conta.isConsumoExcedente(LIMITE_CONSUMO));
+                conta.setData(conta.getData().format(FORMATTER));
             }
             response = Response.ok(contas);
         } else {

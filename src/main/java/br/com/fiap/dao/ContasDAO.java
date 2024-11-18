@@ -6,9 +6,11 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class ContasDAO extends Repository{
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     public ArrayList<ContasTO> findAllContas() {
         ArrayList<ContasTO> contas = new ArrayList<ContasTO>();
         String sql = "select * from contas_luz order by id";
