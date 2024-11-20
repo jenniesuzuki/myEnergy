@@ -6,7 +6,6 @@ import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 public class ContasTO {
     private Long id;
@@ -25,13 +24,14 @@ public class ContasTO {
     public ContasTO() {
     }
 
-    public ContasTO(Long id, @NotBlank @Size(min = 11, max = 11, message = "O CPF deve ter 11 dígitos.") String usuarioCpf, @PastOrPresent LocalDate data, @PositiveOrZero float valor, @PositiveOrZero float kwh, float co2) {
+    public ContasTO(Long id, @NotBlank @Size(min = 11, max = 11, message = "O CPF deve ter 11 dígitos.") String usuarioCpf, @PastOrPresent LocalDate data, @PositiveOrZero float valor, @PositiveOrZero float kwh, float co2, boolean consumoExcedente) {
         this.id = id;
         this.usuarioCpf = usuarioCpf;
         this.data = data;
         this.valor = valor;
         this.kwh = kwh;
         this.co2 = co2;
+        this.consumoExcedente = consumoExcedente;
     }
 
     public Long getId() {
@@ -56,14 +56,6 @@ public class ContasTO {
 
     public void setData(LocalDate data) {
         this.data = data;
-    }
-
-    public String getDataFormatada() {
-        return data != null ? data.format(FORMATTER) : null;
-    }
-
-    public void setData(String data) {
-        this.data = LocalDate.parse(data, FORMATTER);
     }
 
     public float getValor() {
@@ -91,23 +83,20 @@ public class ContasTO {
         this.co2 = co2;
     }
 
+    public void setConsumoExcedente(boolean consumoExcedente) {
+        this.consumoExcedente = consumoExcedente;
+    }
+
+    public boolean getConsumoExcedente() {
+        return consumoExcedente;
+    }
+
     public float calcularEmissoesCO2(float consumoKWh) {
         final float FATOR_EMISSAO = 0.124f;
         return consumoKWh * FATOR_EMISSAO;
     }
 
-    public boolean isConsumoExcedente() {
-        return consumoExcedente;
-    }
-
-    public void setConsumoExcedente(boolean consumoExcedente) {
-        this.consumoExcedente = consumoExcedente;
-    }
-
     public boolean isConsumoExcedente(float limite) {
         return this.kwh > limite;
     }
-
-    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
 }

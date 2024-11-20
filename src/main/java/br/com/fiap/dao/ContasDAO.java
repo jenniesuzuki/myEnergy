@@ -10,10 +10,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class ContasDAO extends Repository{
-    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     public ArrayList<ContasTO> findAllContas() {
         ArrayList<ContasTO> contas = new ArrayList<ContasTO>();
-        String sql = "select * from contas_luz order by id";
+        String sql = "SELECT * FROM contas_luz ORDER BY id";
         try (PreparedStatement ps = getConnection().prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();
             if (rs != null) {
@@ -40,7 +39,7 @@ public class ContasDAO extends Repository{
 
     public ContasTO findContaById(Long id) {
         ContasTO conta = new ContasTO();
-        String sql = "select * from contas_luz where id = ?";
+        String sql = "SELECT * FROM contas_luz WHERE id = ?";
         try (PreparedStatement ps = getConnection().prepareStatement(sql)){
             ps.setLong(1, id);
             ResultSet rs = ps.executeQuery();
@@ -89,7 +88,7 @@ public class ContasDAO extends Repository{
 
     public ContasTO saveConta(ContasTO conta) {
         conta.setCo2(conta.calcularEmissoesCO2(conta.getKwh()));
-        String sql = "insert into contas_Luz(usuario_cpf, data, valor, kwh, co2) values(?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO contas_Luz(usuario_cpf, data, valor, kwh, co2) VALUES(?, ?, ?, ?, ?)";
         try (PreparedStatement ps = getConnection().prepareStatement(sql)) {
             ps.setString(1, conta.getUsuarioCpf());
             ps.setDate(2, Date.valueOf(conta.getData()));
@@ -110,7 +109,7 @@ public class ContasDAO extends Repository{
     }
 
     public boolean deleteConta(Long id) {
-        String sql = "delete from contas_luz where id = ?";
+        String sql = "DELETE FROM contas_luz WHERE id = ?";
         try(PreparedStatement ps = getConnection().prepareStatement(sql)) {
             ps.setLong(1, id);
             return ps.executeUpdate() > 0;
@@ -124,7 +123,7 @@ public class ContasDAO extends Repository{
 
     public ContasTO updateConta(ContasTO conta) {
         conta.setCo2(conta.calcularEmissoesCO2(conta.getKwh()));
-        String sql = "update contas_luz set usuario_cpf=?, data=?, valor =?, kwh=?, co2=? where id=?";
+        String sql = "UPDATE contas_luz SET usuario_cpf=?, data=?, valor =?, kwh=?, co2=? where id=?";
         try (PreparedStatement ps = getConnection().prepareStatement(sql)) {
             ps.setString(1, conta.getUsuarioCpf());
             ps.setDate(2, Date.valueOf(conta.getData()));

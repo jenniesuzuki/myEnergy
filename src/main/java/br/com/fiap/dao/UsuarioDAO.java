@@ -40,7 +40,6 @@ public class UsuarioDAO extends Repository {
             if (rs.next()) {
                 usuario.setCpf(rs.getString("cpf"));
                 usuario.setNome(rs.getString("nome"));
-                usuario.setSenha(rs.getString("senha"));
             } else {
                 return null;
             }
