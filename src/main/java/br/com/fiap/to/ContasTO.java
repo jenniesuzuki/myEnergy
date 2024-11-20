@@ -1,6 +1,5 @@
 package br.com.fiap.to;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.PositiveOrZero;
@@ -15,7 +14,6 @@ public class ContasTO {
     @Size(min = 11, max = 11, message = "O CPF deve ter 11 dígitos.")
     private String usuarioCpf;
     @PastOrPresent
-    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate data;
     @PositiveOrZero
     private float valor;
