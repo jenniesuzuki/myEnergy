@@ -20,12 +20,12 @@ Certifique-se de ter o **Java** instalado em sua máquina e o **IntelliJ**
 
    ```
 
-2. Abra o projeto com o IntelliJ (pasta clonada;
+2. Abra o projeto com o IntelliJ (pasta clonada);
 
 3. Inicie a 'Main' entrando na classe de mesmo nome e depois no botão verde ao lado da escrita 'Current File'.
 
 - Pronto a API está no ar, agora pra continuar siga os passos do repositório de Front:
-  https://github.com/victoraugustogfavaro/my-energy
+- https://github.com/victoraugustogfavaro/my-energy
 
 ## Participantes
 
