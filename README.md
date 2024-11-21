@@ -4,12 +4,12 @@ Esta é uma API para o projeto MyEnergy.
 
 ## Funcionalidade
 
-- CRUD de contas de luz e de usuários
-- Autenticar o usuário
+- CRUD de contas de luz e de usuários;
+- Autenticar o usuário.
 
 ## Requisitos
 
-Certifique-se de ter o **Java** instalado em sua máquina e o **IntelliJ**
+Certifique-se de ter o **Java** instalado em sua máquina e o **IntelliJ**.
 
 ### Passos para Instalação e Inicialização do projeto:
 
